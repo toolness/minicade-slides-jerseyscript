@@ -233,11 +233,21 @@
 				]
 			});
 
-	    var kidneyInterval;
+	    var shouldAnimateKidney = false;
+	    var kidneyFrameCount = 0;
+	    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function() {};
 
-	    /* Taken from http://dumbwaystodie.com/js/script.js */
 	    function kidneyFrame() {
+		    if (shouldAnimateKidney)
+		    	window.requestAnimationFrame(kidneyFrame);
+
+		    // The animation moves at 30 FPS, not 60, so we'll only animate
+		    // every other frame.
+	    	if (kidneyFrameCount++ % 2 == 0) return;
+
 		    $('#kidney').each(function() {
+    	    // Taken from http://dumbwaystodie.com/js/script.js
 					var y = $(this).css('background-position').split(" ")[1].replace(/[^0-9-]/g, '');
 					if ($(this).attr('data-loop') != 1) y = ( y == '-'+($(this).attr('data-loop')-1)*$(this).height() ) ? 0 : y-$(this).height();
 					$(this).css('background-position', '0 ' + y + 'px');
@@ -245,10 +255,9 @@
 		  }
 
 		  function maybeAnimateKidney(event) {
-		  	clearInterval(kidneyInterval);
-		  	kidneyInterval = undefined;
-		  	if ($.contains(event.currentSlide, $('#kidney')[0]))
-		  		kidneyInterval = setInterval(kidneyFrame, 1000 / 30);
+		  	shouldAnimateKidney = $.contains(event.currentSlide, $('#kidney')[0]);
+		  	if (shouldAnimateKidney)
+		  		window.requestAnimationFrame(kidneyFrame);
 		  }
 
 		  Reveal.addEventListener('ready', maybeAnimateKidney, false);
