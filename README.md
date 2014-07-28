@@ -7,6 +7,10 @@ file, so there may be some extraneous stuff in here. Just open
 
 reveal.js is copyright (C) 2014 Hakim El Hattab.
 
+The Dumb Ways To Die kidney and associated animation code was lifted from
+[dumbwaystodie.com][] without their permission. Hope that's okay!
+
   [reveal.js]: http://lab.hakim.se/reveal-js/
   [Minicade]: http://minica.de/
   [JerseyScript]: http://jerseyscript.github.io/
+  [dumbwaystodie.com]: http://dumbwaystodie.com/

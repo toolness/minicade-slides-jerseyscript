@@ -26,6 +26,17 @@
 			background: transparent;
 			box-shadow: none;
 		}
+
+		/* Taken from http://dumbwaystodie.com/css/main.css */
+		#kidney {
+			display: inline-block;
+			width: 135px;
+			height: 139px;
+			left: -100px;
+			top: 1052px;
+			background-image: url('img/kidneyDanceSmall.png');
+			margin-bottom: 10px;
+		}
 		</style>
 
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -124,8 +135,8 @@
 						<h2>
 							Inspiration
 						</h2>
-						<iframe width="560" height="315" src="//www.youtube.com/embed/IJNR2EpS0jw?rel=0" frameborder="0" allowfullscreen></iframe>
-						<p><small>Chloe introduced Atul to <a href="http://www.dumbwaystodie.com/">Dumb Ways To Die</a> on iOS.</small></p>
+						<div id="kidney" data-loop="44"></div>
+						<p><small>Chloe introduced Atul to <a href="http://www.dumbwaystodie.com/">Dumb Ways To Die</a>.</small></p>
   				</section>
   				<section>
   					<iframe width="420" height="315" src="//www.youtube.com/embed/_3VRTgMWVsc?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -191,6 +202,7 @@
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
+		<script src="js/jquery-2.1.1.min.js"></script>
 
 		<script>
 
@@ -220,6 +232,26 @@
 				]
 			});
 
+	    var kidneyInterval;
+
+	    /* Taken from http://dumbwaystodie.com/js/script.js */
+	    function kidneyFrame() {
+		    $('#kidney').each(function() {
+					var y = $(this).css('background-position').split(" ")[1].replace(/[^0-9-]/g, '');
+					if ($(this).attr('data-loop') != 1) y = ( y == '-'+($(this).attr('data-loop')-1)*$(this).height() ) ? 0 : y-$(this).height();
+					$(this).css('background-position', '0 ' + y + 'px');
+		    });
+		  }
+
+		  function maybeAnimateKidney(event) {
+		  	clearInterval(kidneyInterval);
+		  	kidneyInterval = undefined;
+		  	if ($.contains(event.currentSlide, $('#kidney')[0]))
+		  		kidneyInterval = setInterval(kidneyFrame, 1000 / 30);
+		  }
+
+		  Reveal.addEventListener('ready', maybeAnimateKidney, false);
+		  Reveal.addEventListener('slidechanged', maybeAnimateKidney, false);
 		</script>
 
 	</body>
