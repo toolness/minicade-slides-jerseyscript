@@ -193,6 +193,50 @@
 				</section>
 
 				<section>
+					<section>
+						<h2>How Does It Work?</h2>
+						<p>The underlying framework, <a href="https://github.com/toolness/fancy-friday">Fancy Friday</a>, contains a metagame primitive that manages the execution of microgames.</p>
+					</section>
+					<section>
+						<h3>Microgames Are Iframes.</h3>
+						<p>This allows them to have full control over their own runtime environment.</p>
+					</section>
+					<section>
+						<h3>No Dependencies.</h3>
+						<p>A microgame <a href="https://github.com/toolness/fancy-friday#embedded-microgame-api">communicates</a> with its metagame through querystring arguments and <code>postMessage</code> events.</p>
+					</section>
+					<section>
+						<h3>Well, optional dependencies.</h3>
+						<p><code><a href="https://github.com/toolness/fancy-friday#tinygame-api">tinygame.js</a></code> can be used to make things easy.</p>
+						<pre><code class="html" data-trim style="font-size: 18px;">
+&lt;script src="//minicade.herokuapp.com/tinygame.js"&gt;&lt;/script&gt;
+					</code></pre>
+					</section>
+					<section>
+						<h3>Some snippets&hellip;</h3>
+						<pre><code class="javascript" data-trim style="font-size: 18px;">
+Tinygame.onoutoftime = function() {
+  // Stop accepting user input, show ending animation, etc...
+  console.log("Player ran out of time!");
+};
+					</code></pre>
+						<pre><code class="javascript" data-trim style="font-size: 18px;">
+// The player won! Show an ending animation and move to the next game.
+Tinygame.win();
+					</code></pre>
+					  <pre><code class="javascript" data-trim style="font-size: 18px;">
+// The player lost but still got 50% of the maximum possible score.
+Tinygame.end(0.5);
+					</code></pre>
+					  <pre><code class="javascript" data-trim style="font-size: 18px;">
+console.log("I am on", Tinygame.difficulty, "mode.");
+console.log("Player has", Tinygame.playTime, "seconds to play me.");
+console.log("I have", Tinygame.endingTime, "seconds to show an end animation.");
+					</code></pre>
+					</section>
+				</section>
+
+				<section>
 					<h1>Try It</h1>
 					<p><a href="http://minica.de/">http://minica.de/</a></p>
 				</section>
